@@ -97,7 +97,6 @@ const WeatherWrapper = () => {
                 } 
                 const { coords } = await getCurrentPositionAsync({});
                 console.log(coords);
-                // after this line causes re render
                 test(coords.latitude, coords.longitude);
             } 
             catch(err) {
