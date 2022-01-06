@@ -3,7 +3,7 @@ import { StyleSheet, Text, ImageBackground, View, Platform } from 'react-native'
 
 const Today = ({time, temperature, humidity, backgroundImage, city}) => {
     console.log(Platform.OS);
-    
+
     return (
         <>
             <ImageBackground 
@@ -36,9 +36,7 @@ const Today = ({time, temperature, humidity, backgroundImage, city}) => {
 
 const styles = StyleSheet.create({
     container: {
-        flex:1, 
-        justifyContent: 'flex-start', 
-        alignItems:'flex-start',
+        flex:1,
         color: 'rgba(0,0,0,0.5)'
     //   paddingTop: Platform.OS === "android" ? StatusBar.currentHight : 0,
     },

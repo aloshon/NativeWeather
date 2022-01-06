@@ -30,7 +30,6 @@ const styles = StyleSheet.create({
         width: 40,
     },
     dayStyle: {
-        border: "1px black solid",
         height: 150,
         width: 150,
         justifyContent: "center",

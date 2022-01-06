@@ -6,21 +6,11 @@ import { StyleSheet, ImageBackground, View, ScrollView } from 'react-native';
 const Forecast = ({forecast, bgImage}) => {
 
     // Only get the data that we want
-    const forecastData = forecast.data.data.map(day => {
-        return {
-            high: day.high_temp,
-            low: day.low_temp,
-            date: day.datetime,
-            description: day.weather.description,
-            uv: day.uv,
-            icon_code: day.weather.icon,
-        }
-    });
+    const forecastData = forecast
 
     console.log(forecastData);
     return <>
         <ImageBackground source={bgImage} style={{flex:1, resizeMode: 'cover'}}>
-        <View contentContainerStyle={styles.container}>
             <ScrollView horizontal={true}
             showsHorizontalScrollIndicator={true}
             contentContainerStyle={styles.container}>
@@ -36,7 +26,6 @@ const Forecast = ({forecast, bgImage}) => {
                     />
                 )}
             </ScrollView>
-        </View>
         </ImageBackground>
     </>
 }
@@ -46,6 +35,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "center",
         alignItems: "center",
+        zIndex: 100,
     }
 })
 
