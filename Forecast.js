@@ -1,7 +1,6 @@
 import React from "react";
 import Day from "./Day.js";
 import { StyleSheet, ImageBackground, View, ScrollView } from 'react-native';
-
 // Display 16 day forecast
 const Forecast = ({forecast, bgImage}) => {
 
@@ -13,7 +12,9 @@ const Forecast = ({forecast, bgImage}) => {
         <ImageBackground source={bgImage} style={{flex:1, resizeMode: 'cover'}}>
             <ScrollView horizontal={true}
             showsHorizontalScrollIndicator={true}
-            contentContainerStyle={styles.container}>
+            nestedScrollEnabled={true}
+            contentContainerStyle={styles.container}
+           >
                 {forecastData.map((day, idx) => 
                     <Day 
                         key={idx}
@@ -35,7 +36,6 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "center",
         alignItems: "center",
-        zIndex: 100,
     }
 })
 
