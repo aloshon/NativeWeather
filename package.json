@@ -13,6 +13,7 @@
     "@react-native-community/hooks": "^2.8.1",
     "axios": "^0.24.0",
     "expo": "~43.0.2",
+    "expo-font": "~10.0.3",
     "expo-location": "~13.0.4",
     "expo-status-bar": "~1.1.0",
     "react": "17.0.1",
@@ -20,8 +21,7 @@
     "react-native": "0.64.3",
     "react-native-svg": "^12.1.1",
     "react-native-svg-transformer": "^0.14.3",
-    "react-native-web": "0.17.1",
-    "expo-font": "~10.0.3"
+    "react-native-web": "0.17.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"
