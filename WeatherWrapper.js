@@ -9,8 +9,15 @@ import Forecast from "./Forecast.js";
 // All weather descriptions I know:
 // There are lots of variants of rain so maybe just check if rain is listed then put rain image
 // Sunny, Clear, Overcast, Cloudy, Mist, Partly Cloudy, Fog, Heavy Rain, 
+// create function that reads the weather description and links it to proper image
 
 const WeatherWrapper = () => {
+    const Sunny = "https://i.pinimg.com/564x/08/88/41/0888416ab798cea17945abe2288ba2cb.jpg";
+    const Night = "https://wallpapercave.com/wp/wp5111714.jpg";
+    const Day = "https://i.pinimg.com/736x/80/2b/29/802b295cbda81367eb4580cf3816f45b.jpg";
+    const rainy = "https://wallpaperaccess.com/full/3870826.jpg";
+    const Overcast = "https://i2.pickpik.com/photos/453/12/984/air-sky-cloud-background-thumb.jpg";
+
     console.log("APP EXECUTED");
     console.log(useDimensions());
 
@@ -18,6 +25,9 @@ const WeatherWrapper = () => {
     const {width, height} = Platform.OS === 'web' ? window : screen;
     const [today, setToday] = useState("");
     const [forecast, setForecast] = useState("");
+    const [city, setCity] = useState(null);
+    const [bgImageForecast, setBgImageForecast] = useState({uri: Overcast});
+
     let current = new Date();
     const date = (current.getMonth()+1)+'-'+current.getDate()+'-'+current.getFullYear();
     const formatAMPM = (day) => {
@@ -29,17 +39,27 @@ const WeatherWrapper = () => {
         minutes = minutes.toString().padStart(2, '0');
         let strTime = hours + ':' + minutes + ' ' + ampm;
         return strTime;
-      }
-      
+    }
     const time = formatAMPM(current) + ' ' + date;
-    const [city, setCity] = useState("");
-    const Sunny = "https://i.pinimg.com/564x/08/88/41/0888416ab798cea17945abe2288ba2cb.jpg";
-    const night = "https://wallpapercave.com/wp/wp5111714.jpg";
-    const rainy = "https://wallpaperaccess.com/full/3870826.jpg";
-    const Overcast = "https://i2.pickpik.com/photos/453/12/984/air-sky-cloud-background-thumb.jpg";
-    const [bgImage, setBgImage] = useState({uri: Sunny});
-    const [bgImageForecast, setBgImageForecast] = useState({uri: Overcast});
 
+    const formatDayNight = (datetime) => {
+        let [time, ampm] = datetime.split(" ");
+        time = time.split(":")[0];
+        ampm = 'am';
+        console.log(time)
+        if(time >= 8 && ampm === 'pm' || time <= 6 && ampm === 'am' ){
+            return Night
+        } else {
+            return Day
+        }
+    }
+
+    const timeOfDay = formatDayNight(time);
+    console.log(timeOfDay)
+    const [bgImage, setBgImage] = useState({uri: timeOfDay});
+
+    console.log(bgImage)
+    console.log(bgImageForecast)
 
     const test = async (lat, lon, units='imperial') => {
         try {
@@ -90,7 +110,7 @@ const WeatherWrapper = () => {
                         "weather": {
                             "icon": "c01d",
                             "code": 800,
-                            "description": "Clear sky"
+                            "description": "Overcast"
                         },
                         "datetime": "2022-01-05:20",
                         "temp": 67.7,
@@ -235,7 +255,8 @@ const WeatherWrapper = () => {
             // console.log(currentRes.data);
             // console.log(forecastRes.data.data);
             setToday(currentRes.data[0]);
-
+            setBgImageForecast({uri: currentRes.data[0].weather.description})
+            console.log(currentRes.data[0].weather.description)
             setForecast(forecastRes);
             console.log(today.temp)
             console.log(forecast)
@@ -284,9 +305,9 @@ const WeatherWrapper = () => {
 
         getCoords();
 
-        return;
+        return () => {};
     }, []);
-
+    console.log(bgImageForecast)
     while(forecast === "") return null;
 
     return (
@@ -323,14 +344,17 @@ const WeatherWrapper = () => {
         <ScrollView
         horizontal={true}
         pagingEnabled
-        showsHorizontalScrollIndicator={false}
-        nestedScrollEnabled={true}
-        contentContainerStyle={styles.container}>
+        showsHorizontalScrollIndicator={true}
+        contentContainerStyle={styles.container}
+        style={{ 
+            width: width, 
+            height: height
+        }}>
             <View style={{width: width, height: height}}>
                 <Today style={styles.fonts} time={time} temperature={today.temp} humidity={90} backgroundImage={bgImage} city={today.city_name}/>
             </View>
             <View style={{width: width, height: height}}>
-                <Forecast forecast={forecast} bgImage={bgImageForecast}/>
+                <Forecast forecast={forecast} bgImage={bgImageForecast} />
             </View>
         </ScrollView>
     // </SafeAreaView>
@@ -339,7 +363,6 @@ const WeatherWrapper = () => {
 
 const styles = StyleSheet.create({
     container: {
-      zIndex: 1,
     //   paddingTop: Platform.OS === "android" ? StatusBar.currentHight : 0,
     },
 });  
