@@ -2,7 +2,7 @@ import React from "react";
 import { StyleSheet, Text, ImageBackground, View, Platform } from 'react-native';
 
 const Today = ({time, temperature, humidity, backgroundImage, city}) => {
-    console.log(Platform.OS);
+    console.log(backgroundImage);
 
     return (
         <>
