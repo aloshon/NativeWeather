@@ -8,25 +8,29 @@ import Today from "./Today.js";
 import Forecast from "./Forecast.js";
 // All weather descriptions I know:
 // There are lots of variants of rain so maybe just check if rain is listed then put rain image
-// Sunny, Clear, Overcast, Cloudy, Mist, Partly Cloudy, Fog, Heavy Rain, 
+// Get Images for: Drizzle, Sleet, Fog, Clouds, Smoke, Mist 
 // create function that can get weather descriptions from api and get the right image
 // split up the weather description and loop over the array looking for key words like rain or overcast
 // Then return the appropriate image
 // Get the description and string.split().
-// Now loop over array and pass each index into weatherDescriptions object
+// Now loop over array, .toUpperCase, and pass each index into weatherDescriptions object
 // Simply return the first index to not output undefined from the object
 // If every description is exhausted then put a default background
+// No need to hold image links in variables now
 
 const WeatherWrapper = () => {
-    const Sunny = "https://i.pinimg.com/564x/08/88/41/0888416ab798cea17945abe2288ba2cb.jpg";
+    // const Sunny = "https://i.pinimg.com/564x/08/88/41/0888416ab798cea17945abe2288ba2cb.jpg";
     const Night = "https://wallpapercave.com/wp/wp5111714.jpg";
     const Day = "https://i.pinimg.com/736x/80/2b/29/802b295cbda81367eb4580cf3816f45b.jpg";
-    const Rainy = "https://wallpaperaccess.com/full/3870826.jpg";
+    // const Rainy = "https://wallpaperaccess.com/full/3870826.jpg";
     const Overcast = "https://i2.pickpik.com/photos/453/12/984/air-sky-cloud-background-thumb.jpg";
+    // const Thunderstorm = "https://s.w-x.co/util/image/w/0622lightning.jpg?v=at&w=532&h=532";
     const weatherDescriptions = {
-        "Sunny": Sunny, 
-        "Rainy" :Rainy, 
-        "Overcast" :Overcast
+        "Sunny": "https://i.pinimg.com/564x/08/88/41/0888416ab798cea17945abe2288ba2cb.jpg", 
+        "Rainy" : "https://wallpaperaccess.com/full/3870826.jpg", 
+        "Overcast" : "https://i2.pickpik.com/photos/453/12/984/air-sky-cloud-background-thumb.jpg",
+        "Thunderstorm" : "https://s.w-x.co/util/image/w/0622lightning.jpg?v=at&w=532&h=532",
+        "Snow" : "https://previews.123rf.com/images/tatman/tatman1702/tatman170200008/71880359-vertical-image-of-a-long-driveway-in-the-woods-covered-with-snow-.jpg",
     };
 
     console.log("APP EXECUTED");
