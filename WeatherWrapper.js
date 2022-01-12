@@ -9,14 +9,25 @@ import Forecast from "./Forecast.js";
 // All weather descriptions I know:
 // There are lots of variants of rain so maybe just check if rain is listed then put rain image
 // Sunny, Clear, Overcast, Cloudy, Mist, Partly Cloudy, Fog, Heavy Rain, 
-// create function that reads the weather description and links it to proper image
+// create function that can get weather descriptions from api and get the right image
+// split up the weather description and loop over the array looking for key words like rain or overcast
+// Then return the appropriate image
+// Get the description and string.split().
+// Now loop over array and pass each index into weatherDescriptions object
+// Simply return the first index to not output undefined from the object
+// If every description is exhausted then put a default background
 
 const WeatherWrapper = () => {
     const Sunny = "https://i.pinimg.com/564x/08/88/41/0888416ab798cea17945abe2288ba2cb.jpg";
     const Night = "https://wallpapercave.com/wp/wp5111714.jpg";
     const Day = "https://i.pinimg.com/736x/80/2b/29/802b295cbda81367eb4580cf3816f45b.jpg";
-    const rainy = "https://wallpaperaccess.com/full/3870826.jpg";
+    const Rainy = "https://wallpaperaccess.com/full/3870826.jpg";
     const Overcast = "https://i2.pickpik.com/photos/453/12/984/air-sky-cloud-background-thumb.jpg";
+    const weatherDescriptions = {
+        "Sunny": Sunny, 
+        "Rainy" :Rainy, 
+        "Overcast" :Overcast
+    };
 
     console.log("APP EXECUTED");
     console.log(useDimensions());
@@ -59,7 +70,7 @@ const WeatherWrapper = () => {
     const [bgImage, setBgImage] = useState({uri: timeOfDay});
 
     console.log(bgImage)
-    console.log(bgImageForecast)
+    console.log(bgImageForecast);
 
     const test = async (lat, lon, units='imperial') => {
         try {
@@ -255,7 +266,7 @@ const WeatherWrapper = () => {
             // console.log(currentRes.data);
             // console.log(forecastRes.data.data);
             setToday(currentRes.data[0]);
-            setBgImageForecast({uri: currentRes.data[0].weather.description})
+            setBgImageForecast({uri: weatherDescriptions[currentRes.data[0].weather.description]})
             console.log(currentRes.data[0].weather.description)
             setForecast(forecastRes);
             console.log(today.temp)
