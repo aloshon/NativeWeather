@@ -19,12 +19,9 @@ import Forecast from "./Forecast.js";
 // No need to hold image links in variables now
 
 const WeatherWrapper = () => {
-    // const Sunny = "https://i.pinimg.com/564x/08/88/41/0888416ab798cea17945abe2288ba2cb.jpg";
     const Night = "https://wallpapercave.com/wp/wp5111714.jpg";
     const Day = "https://i.pinimg.com/736x/80/2b/29/802b295cbda81367eb4580cf3816f45b.jpg";
-    // const Rainy = "https://wallpaperaccess.com/full/3870826.jpg";
     const Overcast = "https://i2.pickpik.com/photos/453/12/984/air-sky-cloud-background-thumb.jpg";
-    // const Thunderstorm = "https://s.w-x.co/util/image/w/0622lightning.jpg?v=at&w=532&h=532";
     const weatherDescriptions = {
         "Sunny": "https://i.pinimg.com/564x/08/88/41/0888416ab798cea17945abe2288ba2cb.jpg", 
         "Rainy" : "https://wallpaperaccess.com/full/3870826.jpg", 
@@ -32,6 +29,18 @@ const WeatherWrapper = () => {
         "Thunderstorm" : "https://s.w-x.co/util/image/w/0622lightning.jpg?v=at&w=532&h=532",
         "Snow" : "https://previews.123rf.com/images/tatman/tatman1702/tatman170200008/71880359-vertical-image-of-a-long-driveway-in-the-woods-covered-with-snow-.jpg",
     };
+
+     // Only get the data that we want
+    //  const forecastData = forecast.data.data.map(day => {
+    //     return {
+    //         high: day.high_temp,
+    //         low: day.low_temp,
+    //         date: day.datetime,
+    //         description: day.weather.description,
+    //         uv: day.uv,
+    //         icon_code: day.weather.icon,
+    //     }
+    // });
 
     console.log("APP EXECUTED");
     console.log(useDimensions());
@@ -50,7 +59,7 @@ const WeatherWrapper = () => {
         let minutes = day.getMinutes();
         let ampm = hours >= 12 ? 'pm' : 'am';
         hours = hours % 12;
-        hours = hours ? hours : 12;
+        hours = hours !== 0 ? hours : 12; // 00:00 is actually 12:00
         minutes = minutes.toString().padStart(2, '0');
         let strTime = hours + ':' + minutes + ' ' + ampm;
         return strTime;
@@ -60,7 +69,7 @@ const WeatherWrapper = () => {
     const formatDayNight = (datetime) => {
         let [time, ampm] = datetime.split(" ");
         time = time.split(":")[0];
-        ampm = 'am';
+        // ampm = 'am';
         console.log(time)
         if(time >= 8 && ampm === 'pm' || time <= 6 && ampm === 'am' ){
             return Night
