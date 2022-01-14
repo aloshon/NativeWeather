@@ -5,21 +5,21 @@ import { inlineStyles } from "react-native-svg";
 // Display specific data for individual day in 16 day forecast
 // Icons can be found online, I either download them or use a link
 // However the link may be unreliable
-const Day = ({date, description, high, low, uv, icon_code}) => {
+const Day = ({index, date, description, high, low, uv, icon_code}) => {
 
     return (
-    <View style={styles.dayStyle}>
+    <View style={index === 0 ? styles.todayStyle : styles.dayStyle}>
         <Text>{date}</Text>
-        <Text>{description}</Text>
         <Text>{high}°F</Text>
         <Text>{low}°F</Text>
-        <Text>{uv}</Text>
+        <Text>{uv} uv</Text>
         <Image
         style={styles.icon} 
         source={{
             uri: `https://www.weatherbit.io/static/img/icons/${icon_code}.png`,
             }} 
         />
+        <Text>{description}</Text>
     </View>
     )
 }
@@ -34,6 +34,19 @@ const styles = StyleSheet.create({
         width: 150,
         justifyContent: "center",
         alignItems: "center",
+        backgroundColor: "rgba(200,200,200,0.3)",
+        margin: "5px",
+    },
+    todayStyle: {
+        height: 150,
+        width: 150,
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "rgba(200,200,200,0.7)",
+        margin: "5px"
+    },
+    text: {
+        fontStyle: "Montserrat-Light"
     }
 })
 
