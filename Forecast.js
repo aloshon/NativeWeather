@@ -18,6 +18,7 @@ const Forecast = ({forecast, bgImage}) => {
                 {forecastData.map((day, idx) => 
                     <Day 
                         key={idx}
+                        index={idx}
                         date={day.date} 
                         description={day.description} 
                         high={day.high} 
@@ -36,7 +37,8 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "center",
         alignItems: "center",
-    }
+    },
+
 })
 
 export default Forecast;
