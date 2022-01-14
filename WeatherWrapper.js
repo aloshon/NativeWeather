@@ -12,22 +12,22 @@ import Forecast from "./Forecast.js";
 // create function that can get weather descriptions from api and get the right image
 // split up the weather description and loop over the array looking for key words like rain or overcast
 // Then return the appropriate image
-// Get the description and string.split().
-// Now loop over array, .toUpperCase, and pass each index into weatherDescriptions object
+// Now loop over array, .toLowerCase, and pass each index into weatherDescriptions object
 // Simply return the first index to not output undefined from the object
 // If every description is exhausted then put a default background
 // No need to hold image links in variables now
-
+// Create function to get the time every minute so it updates or maybe react native has one
 const WeatherWrapper = () => {
     const Night = "https://wallpapercave.com/wp/wp5111714.jpg";
     const Day = "https://i.pinimg.com/736x/80/2b/29/802b295cbda81367eb4580cf3816f45b.jpg";
-    const Overcast = "https://i2.pickpik.com/photos/453/12/984/air-sky-cloud-background-thumb.jpg";
+    const Overcast = "https://www.photos-public-domain.com/wp-content/uploads/2012/04/cloudy-overcast-sky.jpg";
     const weatherDescriptions = {
-        "Sunny": "https://i.pinimg.com/564x/08/88/41/0888416ab798cea17945abe2288ba2cb.jpg", 
-        "Rainy" : "https://wallpaperaccess.com/full/3870826.jpg", 
-        "Overcast" : "https://i2.pickpik.com/photos/453/12/984/air-sky-cloud-background-thumb.jpg",
-        "Thunderstorm" : "https://s.w-x.co/util/image/w/0622lightning.jpg?v=at&w=532&h=532",
-        "Snow" : "https://previews.123rf.com/images/tatman/tatman1702/tatman170200008/71880359-vertical-image-of-a-long-driveway-in-the-woods-covered-with-snow-.jpg",
+        "sunny": "https://i.pinimg.com/564x/08/88/41/0888416ab798cea17945abe2288ba2cb.jpg", 
+        "rainy" : "https://wallpaperaccess.com/full/3870826.jpg", 
+        "clouds" : "https://www.photos-public-domain.com/wp-content/uploads/2012/04/cloudy-overcast-sky.jpg",
+        "thunderstorm" : "https://s.w-x.co/util/image/w/0622lightning.jpg?v=at&w=532&h=532",
+        "snow" : "https://previews.123rf.com/images/tatman/tatman1702/tatman170200008/71880359-vertical-image-of-a-long-driveway-in-the-woods-covered-with-snow-.jpg",
+        "fog" : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSr7Rnf_UTtYkqwtz7ST0UjLaf08c5iv6n4zg&usqp=CAU",
     };
 
      // Only get the data that we want
@@ -50,8 +50,8 @@ const WeatherWrapper = () => {
     const [today, setToday] = useState("");
     const [forecast, setForecast] = useState("");
     const [city, setCity] = useState(null);
-    const [bgImageForecast, setBgImageForecast] = useState({uri: Overcast});
-
+    const [bgImage, setBgImage] = useState({uri: weatherDescriptions.thunderstorm});
+    
     let current = new Date();
     const date = (current.getMonth()+1)+'-'+current.getDate()+'-'+current.getFullYear();
     const formatAMPM = (day) => {
@@ -69,18 +69,34 @@ const WeatherWrapper = () => {
     const formatDayNight = (datetime) => {
         let [time, ampm] = datetime.split(" ");
         time = time.split(":")[0];
-        // ampm = 'am';
-        console.log(time)
+
+        if(time === "12") return ampm === 'pm' ? Day : Night;
+
         if(time >= 8 && ampm === 'pm' || time <= 6 && ampm === 'am' ){
             return Night
         } else {
             return Day
         }
     }
-
     const timeOfDay = formatDayNight(time);
+
+    const defineBgImage = (description) => {
+        const wordsInDescription = description.split(" ");
+        
+        for(let word of wordsInDescription){
+            word = word.toLowerCase();
+            if(weatherDescriptions[word] !== undefined) return setBgImage({uri: weatherDescriptions[word]})
+        }
+
+        // If no word in the description matches any of the bg images we have
+        // Set it to be the day/night bg image
+        setBgImage({uri: timeOfDay});
+    }
+    
+
+    
     console.log(timeOfDay)
-    const [bgImage, setBgImage] = useState({uri: timeOfDay});
+    const [bgImageForecast, setBgImageForecast] = useState({uri: timeOfDay});
 
     console.log(bgImage)
     console.log(bgImageForecast);
@@ -134,7 +150,7 @@ const WeatherWrapper = () => {
                         "weather": {
                             "icon": "c01d",
                             "code": 800,
-                            "description": "Overcast"
+                            "description": "Scattered clouds"
                         },
                         "datetime": "2022-01-05:20",
                         "temp": 67.7,
@@ -279,17 +295,13 @@ const WeatherWrapper = () => {
             // console.log(currentRes.data);
             // console.log(forecastRes.data.data);
             setToday(currentRes.data[0]);
-            setBgImageForecast({uri: weatherDescriptions[currentRes.data[0].weather.description]})
-            console.log(currentRes.data[0].weather.description)
+            defineBgImage(currentRes.data[0].weather.description);
             setForecast(forecastRes);
             console.log(today.temp)
-            console.log(forecast)
-
         } catch(err) {
             throw new Error(err)
         }
     }
-    
     const handlePress = () => {
         console.log("PRESSED ASS")
     }
@@ -331,7 +343,7 @@ const WeatherWrapper = () => {
 
         return () => {};
     }, []);
-    console.log(bgImageForecast)
+    
     while(forecast === "") return null;
 
     return (
@@ -378,7 +390,7 @@ const WeatherWrapper = () => {
                 <Today style={styles.fonts} time={time} temperature={today.temp} humidity={90} backgroundImage={bgImage} city={today.city_name}/>
             </View>
             <View style={{width: width, height: height}}>
-                <Forecast forecast={forecast} bgImage={bgImageForecast} />
+                <Forecast forecast={forecast} bgImage={bgImageForecast} timeOfDay={timeOfDay}/>
             </View>
         </ScrollView>
     // </SafeAreaView>

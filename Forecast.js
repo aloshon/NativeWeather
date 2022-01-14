@@ -7,7 +7,6 @@ const Forecast = ({forecast, bgImage}) => {
     // Only get the data that we want
     const forecastData = forecast
 
-    console.log(forecastData);
     return <>
         <ImageBackground source={bgImage} style={{flex:1, resizeMode: 'cover'}}>
             <ScrollView horizontal={true}
