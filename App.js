@@ -8,10 +8,11 @@ export default function App() {
   const [loaded] = useFonts({
     'Montserrat-Light': require('./assets/fonts/Montserrat-Light.ttf'),
   });
+
   const customTextProps = { 
     style: { 
       fontFamily: "Montserrat-Light",
-      color: "#000",
+      color: "#fff",
     }
   };
   
