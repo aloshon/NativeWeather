@@ -12,7 +12,7 @@ export default function App() {
   const customTextProps = { 
     style: { 
       fontFamily: "Montserrat-Light",
-      color: "#fff",
+      color: "#FFF",
     }
   };
   
