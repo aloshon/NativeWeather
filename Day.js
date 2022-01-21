@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
         width: 150,
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: "rgba(150,150,150,0.3)",
+        backgroundColor: "rgba(150,150,150,0.4)",
         margin: "5px",
     },
     todayStyle: {

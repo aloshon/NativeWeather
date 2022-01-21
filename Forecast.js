@@ -2,10 +2,7 @@ import React from "react";
 import Day from "./Day.js";
 import { StyleSheet, ImageBackground, View, ScrollView } from 'react-native';
 // Display 16 day forecast
-const Forecast = ({forecast, bgImage}) => {
-
-    // Only get the data that we want
-    const forecastData = forecast
+const Forecast = ({forecastData, bgImage}) => { 
 
     return <>
         <ImageBackground source={bgImage} style={{flex:1, resizeMode: 'cover'}}>
