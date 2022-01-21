@@ -6,22 +6,21 @@ const favicon = require('./assets/favicon.png');
 import axios from "axios";
 import Today from "./Today.js";
 import Forecast from "./Forecast.js";
+import TimeWrapper from "./TimeWrapper.js";
 // All weather descriptions I know:
 // There are lots of variants of rain so maybe just check if rain is listed then put rain image
 // Get Images for: Drizzle, Sleet, Fog, Clouds, Smoke, Mist 
 // create function that can get weather descriptions from api and get the right image
 // split up the weather description and loop over the array looking for key words like rain or overcast
 // Then return the appropriate image
-// Now loop over array, .toLowerCase, and pass each index into weatherDescriptions object
+// Now loop over array, .toLowerCase, and pass each index into weatherBGImages object
 // Simply return the first index to not output undefined from the object
 // If every description is exhausted then put a default background
 // No need to hold image links in variables now
 // Create function to get the time every minute so it updates or maybe react native has one
 const WeatherWrapper = () => {
     const Night = "https://wallpapercave.com/wp/wp5111714.jpg";
-    const Day = "https://i.pinimg.com/736x/80/2b/29/802b295cbda81367eb4580cf3816f45b.jpg";
-    const Overcast = "https://www.photos-public-domain.com/wp-content/uploads/2012/04/cloudy-overcast-sky.jpg";
-    const weatherDescriptions = {
+    const weatherBGImages = {
         "sunny": "https://i.pinimg.com/564x/08/88/41/0888416ab798cea17945abe2288ba2cb.jpg", 
         "rainy" : "https://wallpaperaccess.com/full/3870826.jpg", 
         "clouds" : "https://www.photos-public-domain.com/wp-content/uploads/2012/04/cloudy-overcast-sky.jpg",
@@ -45,61 +44,22 @@ const WeatherWrapper = () => {
     console.log("APP EXECUTED");
     console.log(useDimensions());
 
-    const {screen, window} = useDimensions();
-    const {width, height} = Platform.OS === 'web' ? window : screen;
     const [today, setToday] = useState("");
     const [forecast, setForecast] = useState("");
-    const [city, setCity] = useState(null);
-    const [bgImage, setBgImage] = useState({uri: weatherDescriptions.thunderstorm});
-    
-    let current = new Date();
-    const date = (current.getMonth()+1)+'-'+current.getDate()+'-'+current.getFullYear();
-    const formatAMPM = (day) => {
-        let hours = day.getHours();
-        let minutes = day.getMinutes();
-        let ampm = hours >= 12 ? 'pm' : 'am';
-        hours = hours % 12;
-        hours = hours !== 0 ? hours : 12; // 00:00 is actually 12:00
-        minutes = minutes.toString().padStart(2, '0');
-        let strTime = hours + ':' + minutes + ' ' + ampm;
-        return strTime;
-    }
-    const time = formatAMPM(current) + ' ' + date;
-
-    const formatDayNight = (datetime) => {
-        let [time, ampm] = datetime.split(" ");
-        time = time.split(":")[0];
-
-        if(time === "12") return ampm === 'pm' ? Day : Night;
-
-        if(time >= 8 && ampm === 'pm' || time <= 6 && ampm === 'am' ){
-            return Night
-        } else {
-            return Day
-        }
-    }
-    const timeOfDay = formatDayNight(time);
+    const [bgImage, setBgImage] = useState({uri: weatherBGImages.thunderstorm});
 
     const defineBgImage = (description) => {
         const wordsInDescription = description.split(" ");
         
         for(let word of wordsInDescription){
             word = word.toLowerCase();
-            if(weatherDescriptions[word] !== undefined) return setBgImage({uri: weatherDescriptions[word]})
+            if(weatherBGImages[word] !== undefined) return setBgImage({uri: weatherBGImages[word]})
         }
 
-        // If no word in the description matches any of the bg images we have
-        // Set it to be the day/night bg image
-        setBgImage({uri: timeOfDay});
+        // If no word in the description matches any of the bg images
+        // Set it to be Night image because it is beautiful
+        setBgImage({uri: Night});
     }
-    
-
-    
-    console.log(timeOfDay)
-    const [bgImageForecast, setBgImageForecast] = useState({uri: timeOfDay});
-
-    console.log(bgImage)
-    console.log(bgImageForecast);
 
     const test = async (lat, lon, units='imperial') => {
         try {
@@ -292,8 +252,7 @@ const WeatherWrapper = () => {
                     "icon_code": "c01d"
                 }
             ]
-            // console.log(currentRes.data);
-            // console.log(forecastRes.data.data);
+
             setToday(currentRes.data[0]);
             defineBgImage(currentRes.data[0].weather.description);
             setForecast(forecastRes);
@@ -301,9 +260,6 @@ const WeatherWrapper = () => {
         } catch(err) {
             throw new Error(err)
         }
-    }
-    const handlePress = () => {
-        console.log("PRESSED ASS")
     }
 
     const getPermission = async () => {
@@ -336,7 +292,7 @@ const WeatherWrapper = () => {
                 console.error(err);
                 Alert.alert("Uh oh... Try again later!");
             }
-            return () => {}
+            return;
         };
 
         getCoords();
@@ -344,63 +300,11 @@ const WeatherWrapper = () => {
         return () => {};
     }, []);
     
-    while(forecast === "") return null;
+    while(!forecast) return <View>Loading</View>;
 
     return (
-        // <SafeAreaView style={styles.container}>
-        //   <Text numberOfLines={1} onPress={handlePress}>Open up App.js to start app! {temperature} {location}</Text>
-        //   <StatusBar style="auto" />
-        //   <Image source={favicon}/>
-        //   <TouchableOpacity onPress={() => console.log("HEY")}>
-        //   <Image 
-        //   // blurRadius={}
-        //   source={{ 
-        //     uri: "https://picsum.photos/200/300",
-        //     width: 200,
-        //     height: 300,
-        //     }}/>
-        //     </TouchableOpacity>
-        // {/* <Button title="Click MEEE!!!!!" onPress={() => Alert.alert("YOU SAVED ME!", "YAY THANK YOU", [
-        //   {text: "Yes", onPress: () => console.log("Good samaritan :)")},
-        // ])}/>
-        // <View style={{ 
-        //   width: "50%", 
-        //   height: 200, 
-        //   backgroundColor:"dodgerblue"}}>
-        // </View> */}
-        // {/* <Image 
-        // // blurRadius={}
-        // source={{ 
-        //   uri: icon,
-        //   width: 80,
-        //   height: 80,
-        //   }}/> */}
-
-        // <Button title="Get Location" onPress={getCoords}/>
-        <ScrollView
-        horizontal={true}
-        pagingEnabled
-        showsHorizontalScrollIndicator={true}
-        contentContainerStyle={styles.container}
-        style={{ 
-            width: width, 
-            height: height
-        }}>
-            <View style={{width: width, height: height}}>
-                <Today style={styles.fonts} time={time} temperature={today.temp} humidity={90} backgroundImage={bgImage} city={today.city_name}/>
-            </View>
-            <View style={{width: width, height: height}}>
-                <Forecast forecast={forecast} bgImage={bgImageForecast} timeOfDay={timeOfDay}/>
-            </View>
-        </ScrollView>
-    // </SafeAreaView>
+    <TimeWrapper forecast={forecast} temperature={today.temp} city={today.city_name} bgImageToday={bgImage} />
     )
 }
-
-const styles = StyleSheet.create({
-    container: {
-    //   paddingTop: Platform.OS === "android" ? StatusBar.currentHight : 0,
-    },
-});  
 
 export default WeatherWrapper;
