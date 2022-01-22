@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, ImageBackground, View, Platform } from 'react-native';
 
-const Today = ({time, temperature, backgroundImage, city}) => {
+const Today = ({time, temperature, description, backgroundImage, city}) => {
 
     return (
         <>
@@ -23,6 +23,10 @@ const Today = ({time, temperature, backgroundImage, city}) => {
                     </Text>
                     <Text 
                     style={styles.texts}>
+                        {description}
+                    </Text>
+                    <Text 
+                    style={styles.texts}>
                         {Platform.OS === 'ios' ? "Welcome Apple User! Android sucks!"
                         : Platform.OS === 'web' ? "Welcome Web User! PC Master Race!" 
                         : "Welcome Android User! Apple sucks!"}
@@ -37,7 +41,6 @@ const styles = StyleSheet.create({
     container: {
         flex:1,
         color: 'rgba(0,0,0,0.5)'
-    //   paddingTop: Platform.OS === "android" ? StatusBar.currentHight : 0,
     },
     temp: {
         color: 'white', 
@@ -48,8 +51,8 @@ const styles = StyleSheet.create({
     texts: {
         color: 'white', 
         fontFamily: 'Montserrat-Light', 
-        fontSize: 48, 
-        margin: 28
+        fontSize: 40, 
+        margin: 21
     },
 });  
 
