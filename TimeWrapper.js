@@ -1,10 +1,10 @@
-import React, {useState, useEffect, useCallback} from 'react';
-import { StyleSheet, Text, View, Dimensions, Image, StatusBar, Platform, ScrollView } from 'react-native';
+import React, {useState, useEffect} from 'react';
+import { View, Platform, ScrollView } from 'react-native';
 import { useDimensions } from "@react-native-community/hooks";
 import Today from "./Today.js";
 import Forecast from "./Forecast.js";
 
-const TimeWrapper = ({forecast, temperature, city, bgImageToday}) => {
+const TimeWrapper = ({forecast, temperature, description, city, bgImageToday}) => {
     const Night = "https://wallpapercave.com/wp/wp5111714.jpg";
     const Day = "https://i.pinimg.com/736x/80/2b/29/802b295cbda81367eb4580cf3816f45b.jpg";
     
@@ -42,7 +42,6 @@ const TimeWrapper = ({forecast, temperature, city, bgImageToday}) => {
         setInterval(() => {
             const timeOfDay = formatDayNight(time);
             let current = new Date();
-            console.log("HERE")
             const date = (current.getMonth()+1)+'-'+current.getDate()+'-'+current.getFullYear();
             setTime(formatAMPM(current) + ' ' + date);
             setBgImageForecast({uri: timeOfDay})
@@ -59,7 +58,7 @@ const TimeWrapper = ({forecast, temperature, city, bgImageToday}) => {
             height: height
         }}>
             <View style={{width: width, height: height}}>
-                <Today time={time} temperature={temperature} backgroundImage={bgImageToday} city={city}/>
+                <Today time={time} temperature={temperature} description={description} backgroundImage={bgImageToday} city={city}/>
             </View>
             <View style={{width: width, height: height}}>
                 <Forecast forecastData={forecast} bgImage={bgImageForecast}/>
