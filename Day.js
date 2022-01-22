@@ -1,10 +1,8 @@
 import React from "react";
-import { StyleSheet, Text, ImageBackground, View, Platform, Image } from 'react-native';
-import { inlineStyles } from "react-native-svg";
+import { StyleSheet, Text, View, Image } from 'react-native';
 
 // Display specific data for individual day in 16 day forecast
-// Icons can be found online, I either download them or use a link
-// However the link may be unreliable
+// Icons can be found online
 const Day = ({index, date, description, high, low, uv, icon_code}) => {
 
     return (
@@ -35,7 +33,7 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         backgroundColor: "rgba(150,150,150,0.4)",
-        margin: "5px",
+        margin: 5,
     },
     todayStyle: {
         height: 170,
@@ -43,11 +41,8 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         backgroundColor: "rgba(200,200,200,0.7)",
-        margin: "5px"
+        margin: 5
     },
-    text: {
-        fontStyle: "Montserrat-Light"
-    }
 })
 
 export default Day;
