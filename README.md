@@ -1,4 +1,6 @@
-This app requests location permissions to get local forecast data and displays proper images.
+This app requests location permissions to get local weather forecast data and displays proper background images.
+- Current Bug!
+    On Android only: nested ScrollViews do not work as expected. Need another work around.
 # Getting Started with Native Weather App
 
 This project was created with expo.
