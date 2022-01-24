@@ -3,17 +3,7 @@ import { Text, Alert } from 'react-native';
 import { requestForegroundPermissionsAsync, getCurrentPositionAsync } from "expo-location";
 import axios from "axios";
 import TimeWrapper from "./TimeWrapper.js";
-// All weather descriptions I know:
-// There are lots of variants of rain so maybe just check if rain is listed then put rain image
-// Get Images for: Drizzle, Sleet, Fog, Clouds, Smoke, Mist 
-// create function that can get weather descriptions from api and get the right image
-// split up the weather description and loop over the array looking for key words like rain or overcast
-// Then return the appropriate image
-// Now loop over array, .toLowerCase, and pass each index into weatherBGImages object
-// Simply return the first index to not output undefined from the object
-// If every description is exhausted then put a default background
-// No need to hold image links in variables now
-// Create function to get the time every minute so it updates or maybe react native has one
+// Gather all weather data from the Weather API and distribute info and background display
 const WeatherWrapper = () => {
     const Night = "https://wallpapercave.com/wp/wp5111714.jpg";
     const weatherBGImages = {
