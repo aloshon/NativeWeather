@@ -36,7 +36,7 @@ const WeatherWrapper = () => {
         setBgImage({uri: Night});
     }
 
-    const test = async (lat, lon, units='imperial') => {
+    const requestWeatherData = async (lat, lon, units='imperial') => {
         try {
             const params = {
                 lat,
@@ -95,7 +95,7 @@ const WeatherWrapper = () => {
                 } 
                 const { coords } = await getCurrentPositionAsync({});
                 
-                test(coords.latitude, coords.longitude);
+                requestWeatherData(coords.latitude, coords.longitude);
             } 
             catch(err) {
                 console.error(err);
