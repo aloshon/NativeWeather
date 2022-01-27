@@ -43,31 +43,16 @@ const WeatherWrapper = () => {
                 lon,
                 units
             }
-            
-            const headers = {
-                'x-rapidapi-key': '3d25a73809msh92d1a102dce0e6ep1b8032jsn5208093ebcc3'
-            }
-            
-            const currentRes = await axios.get(`https://weatherbit-v1-mashape.p.rapidapi.com/current`, {params, headers});
-            const forecastRes = await axios.get(`https://weatherbit-v1-mashape.p.rapidapi.com/forecast/daily`, {params, headers});
+            console.log(params)
+            const res = await axios.get('http://localhost:8000/weather', {params})
+            const {currentData, forecastData} = res.data;
 
-            // Only get the data that we want
-            const forecastData = forecastRes.data.data.map(day => {
-                return {
-                    high: day.high_temp,
-                    low: day.low_temp,
-                    date: day.datetime,
-                    description: day.weather.description,
-                    uv: day.uv,
-                    icon_code: day.weather.icon,
-                }
-            });
-
-            setToday(currentRes.data.data[0]);
-            defineBgImage(currentRes.data.data[0].weather.description);
+            setToday(currentData);
+            defineBgImage(currentData.weather.description);
             setForecast(forecastData);
 
         } catch(err) {
+            console.log(err)
             throw new Error(err)
         }
     }
