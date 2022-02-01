@@ -3,6 +3,7 @@ import { Text, Alert } from 'react-native';
 import { requestForegroundPermissionsAsync, getCurrentPositionAsync } from "expo-location";
 import axios from "axios";
 import TimeWrapper from "./TimeWrapper.js";
+
 // Gather all weather data from the Weather API and distribute info and background display
 const WeatherWrapper = () => {
     const Night = "https://wallpapercave.com/wp/wp5111714.jpg";
@@ -22,10 +23,16 @@ const WeatherWrapper = () => {
     const [today, setToday] = useState("");
     const [forecast, setForecast] = useState("");
     const [bgImage, setBgImage] = useState({uri: weatherBGImages.thunderstorm});
+    // For now depending on whether being deployed or in development,
+    // comment out the proper API_URL
+    // const API_URL = "http://nativeweatherbackend-env.eba-m3wdwngy.us-west-1.elasticbeanstalk.com/weather";
+    const API_URL = "http://localhost:8081/weather";
 
     const defineBgImage = (description) => {
         const wordsInDescription = description.split(" ");
         
+        // Go through each word in the weather description
+        // First word that matches one of the saved background images gets set to bgImage
         for(let word of wordsInDescription){
             word = word.toLowerCase();
             if(weatherBGImages[word] !== undefined) return setBgImage({uri: weatherBGImages[word]})
@@ -44,7 +51,7 @@ const WeatherWrapper = () => {
                 units
             }
             console.log(params)
-            const res = await axios.get('http://localhost:8000/weather', {params})
+            const res = await axios.get(API_URL, {params})
             const {currentData, forecastData} = res.data;
 
             setToday(currentData);
@@ -53,7 +60,7 @@ const WeatherWrapper = () => {
 
         } catch(err) {
             console.log(err)
-            throw new Error(err)
+            Alert.alert('Uh oh.. Something happened.. We are working on it!')
         }
     }
 
