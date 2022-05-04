@@ -25,12 +25,6 @@ const Today = ({time, temperature, description, backgroundImage, city}) => {
                     style={styles.texts}>
                         {description}
                     </Text>
-                    <Text 
-                    style={styles.texts}>
-                        {Platform.OS === 'ios' ? "Welcome Apple User! Android sucks!"
-                        : Platform.OS === 'web' ? "Welcome Web User! PC Master Race!" 
-                        : "Welcome Android User! Apple sucks!"}
-                    </Text>
                 </View>
             </ImageBackground>
         </>
