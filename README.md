@@ -1,8 +1,6 @@
 This app requests location permissions to get local weather forecast data and displays proper images.
-
-### Current Bug!
-
-On Android only: nested `ScrollViews` do not work as expected. Need another work around.
+### Before starting the app 
+Run nvm install 16.13.0 to ensure running on a stable node environment
 
 # Getting Started with Native Weather App
 
