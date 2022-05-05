@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Native Weather",
-    "slug": "Native Weather",
+    "slug": "NativeWeather",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

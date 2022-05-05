@@ -23,16 +23,11 @@ const WeatherWrapper = () => {
     const [today, setToday] = useState("");
     const [forecast, setForecast] = useState("");
     const [bgImage, setBgImage] = useState({uri: weatherBGImages.thunderstorm});
-    // For now depending on whether being deployed or in development,
-    // comment out the proper API_URL
-    // const API_URL = "http://nativeweatherbackend-env.eba-m3wdwngy.us-west-1.elasticbeanstalk.com/weather";
-    const API_URL = "http://localhost:8081/weather";
+    const API_URL = "http://nativeweatherbackend-env.eba-m3wdwngy.us-west-1.elasticbeanstalk.com/weather";
 
     const defineBgImage = (description) => {
         const wordsInDescription = description.split(" ");
         
-        // Go through each word in the weather description
-        // First word that matches one of the saved background images gets set to bgImage
         for(let word of wordsInDescription){
             word = word.toLowerCase();
             if(weatherBGImages[word] !== undefined) return setBgImage({uri: weatherBGImages[word]})
@@ -60,7 +55,7 @@ const WeatherWrapper = () => {
 
         } catch(err) {
             console.log(err)
-            Alert.alert('Uh oh.. Something happened.. We are working on it!')
+            Alert.alert(`Uh oh.. Something happened.. We are working on it!`)
         }
     }
 
