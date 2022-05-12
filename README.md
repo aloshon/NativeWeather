@@ -2,7 +2,7 @@ This app requests location permissions to get local weather forecast data and di
 ### Before starting the app 
 Run nvm install 16.13.0 to ensure running on a stable node environment
 If using native weather backend, in WeatherWrapper.js: 
-    update API_URL to "http://localhost:8081/weather"
+    update API_URL from @env to "http://localhost:8081/weather"
     Otherwise you do not have to change anything! :)
 
 # Getting Started with Native Weather App
@@ -14,6 +14,8 @@ This project was created with expo.
 In the project directory, you can run:
 
 ### `npm start` uses `expo start`
+
+on sidebar click "Run in web browser"
 
 Runs the app in the development mode.\
 Open [http://localhost:19002](http://localhost:19002) to view it in the browser.

@@ -37,15 +37,16 @@ const TimeWrapper = ({forecast, temperature, description, city, bgImageToday}) =
         }
     }
 
-    // update the time every second
     useEffect(() => {
+        const timeOfDay = formatDayNight(time);
+        setBgImageForecast({uri: timeOfDay});
+
+         // update the time every second
         setInterval(() => {
-            const timeOfDay = formatDayNight(time);
             let current = new Date();
             const date = (current.getMonth()+1)+'-'+current.getDate()+'-'+current.getFullYear();
             setTime(formatAMPM(current) + ' ' + date);
-            setBgImageForecast({uri: timeOfDay})
-        }, 1000)
+        }, 1000);
     }, [])
 
     return (

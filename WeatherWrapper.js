@@ -3,6 +3,7 @@ import { Text, Alert } from 'react-native';
 import { requestForegroundPermissionsAsync, getCurrentPositionAsync } from "expo-location";
 import axios from "axios";
 import TimeWrapper from "./TimeWrapper.js";
+import { API_URL } from "@env";
 
 // Gather all weather data from the Weather API and distribute info and background display
 const WeatherWrapper = () => {
@@ -23,7 +24,6 @@ const WeatherWrapper = () => {
     const [today, setToday] = useState("");
     const [forecast, setForecast] = useState("");
     const [bgImage, setBgImage] = useState({uri: weatherBGImages.thunderstorm});
-    const API_URL = "http://nativeweatherbackend-env.eba-m3wdwngy.us-west-1.elasticbeanstalk.com/weather";
 
     const defineBgImage = (description) => {
         const wordsInDescription = description.split(" ");
