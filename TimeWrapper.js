@@ -45,7 +45,7 @@ const TimeWrapper = ({forecast, temperature, description, city, bgImageToday}) =
         setInterval(() => {
             let current = new Date();
             const date = (current.getMonth()+1)+'-'+current.getDate()+'-'+current.getFullYear();
-            setTime(formatAMPM(current) + ' ' + date);
+            setTime(formatAMPM(current) + '\n' + date);
         }, 1000);
     }, [])
 
@@ -59,7 +59,15 @@ const TimeWrapper = ({forecast, temperature, description, city, bgImageToday}) =
             height: height
         }}>
             <View style={{width: width, height: height}}>
-                <Today time={time} temperature={temperature} description={description} backgroundImage={bgImageToday} city={city}/>
+                <Today 
+                    time={time} 
+                    temperature={temperature} 
+                    description={description} 
+                    backgroundImage={bgImageToday} 
+                    city={city}
+                    width={width}
+                    icon_code={forecast[0].icon_code}
+                />
             </View>
             <View style={{width: width, height: height}}>
                 <Forecast forecastData={forecast} bgImage={bgImageForecast}/>
