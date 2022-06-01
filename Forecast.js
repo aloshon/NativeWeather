@@ -1,8 +1,8 @@
 import React from "react";
 import Day from "./Day.js";
-import { StyleSheet, ImageBackground, View, ScrollView } from 'react-native';
+import { StyleSheet, ImageBackground, ScrollView } from 'react-native';
 // Display 16 day forecast
-const Forecast = ({forecastData, bgImage}) => { 
+const Forecast = ({forecastData, bgImage, width}) => {
 
     return <>
         <ImageBackground source={bgImage} style={{flex:1, resizeMode: 'cover'}}>
@@ -21,6 +21,7 @@ const Forecast = ({forecastData, bgImage}) => {
                         low={day.low} 
                         uv={day.uv} 
                         icon_code={day.icon_code} 
+                        width={width}
                     />
                 )}
             </ScrollView>

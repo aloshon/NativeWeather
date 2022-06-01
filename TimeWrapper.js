@@ -10,7 +10,8 @@ const TimeWrapper = ({forecast, temperature, description, city, bgImageToday}) =
     
     const {screen, window} = useDimensions();
     const {width, height} = Platform.OS === 'web' ? window : screen;
-    const [time, setTime] = useState("");
+    let currentTime = new Date();
+    const [time, setTime] = useState(currentTime.toLocaleString());
     const [bgImageForecast, setBgImageForecast] = useState(null);
 
     const formatAMPM = (day) => {
@@ -25,12 +26,13 @@ const TimeWrapper = ({forecast, temperature, description, city, bgImageToday}) =
     }
 
     const formatDayNight = (datetime) => {
-        let [time, ampm] = datetime.split(" ");
-        time = time.split(":")[0];
+        let currTime = datetime.split(",")[1];
+        let [, time, ampm] = currTime.split(" ")
+        time = time[0];
 
         if(time === "12") return ampm === 'pm' ? Day : Night;
 
-        if(time >= 8 && ampm === 'pm' || time <= 6 && ampm === 'am' ){
+        if(time >= 8 && ampm === 'PM' || time <= 6 && ampm === 'AM' ){
             return Night
         } else {
             return Day
@@ -65,12 +67,12 @@ const TimeWrapper = ({forecast, temperature, description, city, bgImageToday}) =
                     description={description} 
                     backgroundImage={bgImageToday} 
                     city={city}
-                    width={width}
                     icon_code={forecast[0].icon_code}
+                    width={width}
                 />
             </View>
             <View style={{width: width, height: height}}>
-                <Forecast forecastData={forecast} bgImage={bgImageForecast}/>
+                <Forecast forecastData={forecast} bgImage={bgImageForecast} width={width}/>
             </View>
         </ScrollView>
     )

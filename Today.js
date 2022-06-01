@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, ImageBackground, View, Image } from 'react-native';
 
-const Today = ({time, temperature, description, backgroundImage, city, width=0, icon_code}) => {
+const Today = ({time, temperature, description, backgroundImage, city, icon_code, width}) => {
 
     return (
         <>
@@ -15,7 +15,7 @@ const Today = ({time, temperature, description, backgroundImage, city, width=0, 
                     </Text>
                     <Text 
                     style={[styles.texts, {fontSize: width > 800 ? 70 : 40}]}>
-                        {time}
+                        { time.indexOf("/") === -1 ? time : "" }
                     </Text>
                     <Text 
                     style={[styles.texts, {fontSize: width > 800 ? 70 : 40,  marginLeft: width > 800 && 44}]}>
@@ -26,7 +26,7 @@ const Today = ({time, temperature, description, backgroundImage, city, width=0, 
                         {description}
                     </Text>
                     <Image
-                    style={styles.icon}
+                    style={[styles.icon, {margin: width > 800 ? 130:26, height: width > 800 ? 150:110, width: width > 800 ? 150:110}]}
                     source={{
                         uri: `https://www.weatherbit.io/static/img/icons/${icon_code}.png`,
                         }} 
@@ -52,8 +52,11 @@ const styles = StyleSheet.create({
         margin: 21,
     },
     icon: {
-        height: 40,
-        width: 40,
+        height: 80,
+        width: 80,
+        position: "absolute",
+        alignSelf: "flex-end",
+        top: "10px",
     },
 });  
 

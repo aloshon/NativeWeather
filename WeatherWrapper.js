@@ -45,7 +45,6 @@ const WeatherWrapper = () => {
                 lon,
                 units
             }
-            console.log(params)
             const res = await axios.get(API_URL, {params})
             const {currentData, forecastData} = res.data;
 

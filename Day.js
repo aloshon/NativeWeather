@@ -3,10 +3,12 @@ import { StyleSheet, Text, View, Image } from 'react-native';
 
 // Display specific data for individual day in 16 day forecast
 // Icons can be found online
-const Day = ({index, date, description, high, low, uv, icon_code}) => {
+
+const Day = ({index, date, description, high, low, uv, icon_code, width}) => {  
 
     return (
-    <View style={index === 0 ? styles.todayStyle : styles.dayStyle}>
+    <View style={index === 0 ? [styles.todayStyle, {margin: width > 800 ? 5:3, width: width > 800 ? 170:140, height: width > 800 ? 170:140,}] 
+    : [styles.dayStyle, {margin: width > 800 ? 5:3, height: width > 800 ? 150:125, width: width > 800 ? 150:125,} ]}>
         <Text>{date}</Text>
         <Text>{high}°F</Text>
         <Text>{low}°F</Text>
@@ -28,20 +30,14 @@ const styles = StyleSheet.create({
         width: 40,
     },
     dayStyle: {
-        height: 150,
-        width: 150,
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: "rgba(150,150,150,0.4)",
-        margin: 5,
+        backgroundColor: "rgba(150,150,150,0.6)",
     },
     todayStyle: {
-        height: 170,
-        width: 170,
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: "rgba(200,200,200,0.7)",
-        margin: 5
+        backgroundColor: "rgba(200,200,200,0.8)",
     },
 })
 
