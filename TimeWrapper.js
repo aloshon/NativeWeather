@@ -28,7 +28,7 @@ const TimeWrapper = ({forecast, temperature, description, city, bgImageToday}) =
     const formatDayNight = (datetime) => {
         let currTime = datetime.split(",")[1];
         let [, time, ampm] = currTime.split(" ")
-        time = time[0];
+        time = time.split(":")[0];
 
         if(time === "12") return ampm === 'pm' ? Day : Night;
 
