@@ -4,8 +4,7 @@ Run nvm install 16.13.0 to ensure running on a stable node environment.
 
 
 If using native weather backend, in WeatherWrapper.js: 
-    update API_URL from @env to "http://localhost:8081/weather"
-    Otherwise you do not have to change anything! :)
+    Create a .env file and set API_URL from .env to "http://localhost:8081/weather"
 
 # Getting Started with Native Weather App
 
