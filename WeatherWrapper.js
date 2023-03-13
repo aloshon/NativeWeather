@@ -19,6 +19,7 @@ const WeatherWrapper = () => {
         "sleet" : "https://media.11alive.com/assets/WXIA/images/da0f7690-ab1b-480e-b86c-d398590a9c8f/da0f7690-ab1b-480e-b86c-d398590a9c8f_1920x1080.jpg",
         "smoke" : "https://media.wired.com/photos/59df8cf66d52e55cdead6b14/master/w_2560%2Cc_limit/NapaFire-TA-859999422.jpg",
         "misty" : "https://upload.wikimedia.org/wikipedia/commons/2/29/Misty_weather_over_Daqing_Pond.jpg",
+        "drizzle" : "https://d12eu00glpdtk2.cloudfront.net/public/images/local/_760x500_clip_center-center_none/rain-in-doha.jpg",
     };
 
     const [today, setToday] = useState("");
@@ -30,6 +31,7 @@ const WeatherWrapper = () => {
         
         for(let word of wordsInDescription){
             word = word.toLowerCase();
+            console.log(word);
             if(weatherBGImages[word] !== undefined) return setBgImage({uri: weatherBGImages[word]})
         }
 
@@ -54,6 +56,8 @@ const WeatherWrapper = () => {
 
         } catch(err) {
             console.log(err)
+            console.log(err.message)
+            console.log(API_URL);
             Alert.alert(`Uh oh.. Something happened.. We are working on it!`)
         }
     }
