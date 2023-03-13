@@ -8,7 +8,7 @@ const Today = ({time, temperature, description, backgroundImage, city, icon_code
             <ImageBackground 
             source={backgroundImage} 
             style={styles.container}>
-                <View>
+                <View style={styles.container}>
                     <Text 
                     style={[styles.temp, {fontSize: width > 800 ? 110 : 80, margin: width > 800 ? 44 : 28}]}>
                         {temperature === undefined ? '...' : `${Math.floor(temperature)} °F`}
@@ -25,12 +25,12 @@ const Today = ({time, temperature, description, backgroundImage, city, icon_code
                     style={[styles.texts, {fontSize: width > 800 ? 70 : 40, marginLeft: width > 800 && 44}]}>
                         {description}
                     </Text>
-                    <Image
+                    {/* <Image
                     style={[styles.icon, {margin: width > 800 ? 130:26, height: width > 800 ? 150:110, width: width > 800 ? 150:110}]}
                     source={{
                         uri: `https://www.weatherbit.io/static/img/icons/${icon_code}.png`,
                         }} 
-                    />
+                    /> */}
                 </View>
             </ImageBackground>
         </>
@@ -40,6 +40,8 @@ const Today = ({time, temperature, description, backgroundImage, city, icon_code
 const styles = StyleSheet.create({
     container: {
         flex:1,
+        width: 'fitContent',
+        height: 'fitContent',
         color: 'rgba(0,0,0,0.5)'
     },
     temp: {
