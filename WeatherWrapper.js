@@ -49,7 +49,7 @@ const WeatherWrapper = () => {
             }
             const res = await axios.get(API_URL, {params})
             const {currentData, forecastData} = res.data;
-
+            console.log(res.data);
             setToday(currentData);
             defineBgImage(currentData.weather.description);
             setForecast(forecastData);
